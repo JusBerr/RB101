@@ -22,12 +22,12 @@ def operation_to_message(op)
   end
 end
 
-prompt(MESSAGES["welcome"]) 
+prompt(MESSAGES["welcome"])
 
 name = nil
 loop do
   name = gets.chomp
-  
+
   if name.empty?
     prompt(MESSAGES["valid_name"])
   else
@@ -39,29 +39,29 @@ prompt("Hi, #{name}!")
 
 loop do # main loop
   number1 = nil
-  loop do 
-    prompt(MESSAGES["num1"]) 
+  loop do
+    prompt(MESSAGES["num1"])
     number1 = gets.chomp
-    
+
     if valid_number?(number1)
       break
     else
       prompt(MESSAGES["num_not_valid"])
     end
   end
-  
+
   number2 = nil
   loop do
-    prompt(MESSAGES["num2"]) 
+    prompt(MESSAGES["num2"])
     number2 = gets.chomp
-    
+
     if valid_number?(number2)
       break
     else
       prompt(MESSAGES["num_not_valid"])
     end
   end
-  
+
   operator_prompt = <<-MSG
     What operation would you like to perform?
     1) add
@@ -69,22 +69,22 @@ loop do # main loop
     3) multiply
     4) divide
   MSG
-  
-  prompt(operator_prompt) 
-  
+
+  prompt(operator_prompt)
+
   operator = nil
   loop do
     operator = gets.chomp
-    
+
     if %w(1 2 3 4).include?(operator)
       break
     else
       prompt("Must choose 1, 2, 3, or 4.")
     end
   end
-  
+
   prompt("#{operation_to_message(operator)} the two numbers...")
-  
+
   result = case operator
            when '1'
               number1.to_f + number2.to_f
@@ -95,13 +95,13 @@ loop do # main loop
            when '4'
               number1.to_f / number2.to_f
   end
-  
+
   prompt("The result is #{result}")
-  
+
   prompt(MESSAGES["try_again"])
   answer = gets.chomp.downcase
-  break unless answer.start_with?("y") 
-  
+  break unless answer.start_with?("y")
+
 end
 
 prompt(MESSAGES["thanks"])

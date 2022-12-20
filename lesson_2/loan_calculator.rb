@@ -1,3 +1,6 @@
+require 'yaml'
+MESSAGES = YAML.load_file('loan_calc_messages.yml')
+
 # Method definitions
 def integer?(input)
   /^-?\d+$/.match(input)
@@ -20,60 +23,64 @@ def monthly_payment(loan_amount, apr, duration_in_months)
 end
 
 def prompt(message)
-  puts ">> #{message}"
+  puts "\n=> #{message}"
 end
 
 # Begin program
-prompt("Let's check out your loan!")
+prompt(MESSAGES["welcome"])
 
-loop do # Main loop
+loop do
   loan_amount = nil
   loop do
-    prompt("What is the total loan amount?")
+    prompt(MESSAGES["get_loan"])
     loan_amount = gets.chomp
 
     if valid_number?(loan_amount)
       loan_amount = loan_amount.to_f
       break
     else
-      prompt("Loan amount must be positive number.")
+      prompt(MESSAGES["invalid_loan"])
     end
   end
 
   apr = nil
   monthly_interest = nil
   loop do
-    prompt("What is the Annual Percentage Rate (APR)?")
+    prompt(MESSAGES["get_apr"])
     apr = gets.chomp
 
-    if valid_number?(apr)
+    if valid_number?(apr) && apr.to_f.between?(0, 100)
       monthly_interest = ((apr.to_f / 100) / 12)
       break
     else
-      prompt("Must enter valid APR.")
+      prompt(MESSAGES["invalid_apr"])
     end
   end
 
   duration_in_years = nil
   duration_in_months = nil
   loop do
-    prompt("What is the duration of the loan (in years)?")
+    prompt(MESSAGES["get_duration"])
     duration_in_years = gets.chomp
 
     if valid_number?(duration_in_years)
       duration_in_months = years_to_months(duration_in_years)
       break
     else
-      prompt("Must enter valid duration in years")
+      prompt(MESSAGES["invalid_duration"])
     end
   end
 
-  prompt("Your monthly payment is $#{monthly_payment(loan_amount, monthly_interest, duration_in_months).round(2)}")
-  prompt("Your monthly interest rate is #{(monthly_interest * 100).round(2)}%")
-  prompt("The duration of your loan is #{duration_in_months.to_i} months.")
+  display_monthly_payment = monthly_payment(loan_amount, monthly_interest, duration_in_months).round(2)
+  display_monthly_interest = (monthly_interest * 100).round(2)
+  display_months = duration_in_months.to_i
 
-  prompt("Would you like to check another loan? (Y/N)")
+  prompt("\tYour monthly payment is $#{display_monthly_payment}")
+  prompt("\tYour monthly interest rate is #{display_monthly_interest}%")
+  prompt("\tThe duration of your loan is #{display_months} months.\n\n")
+
+  prompt(MESSAGES["again"])
   again = gets.chomp.downcase
 
-  break prompt("Thanks for using our loan calculator!") if again != "y"
+  break prompt(MESSAGES["goodbye"]) if again != "y"
 end
