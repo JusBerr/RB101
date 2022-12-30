@@ -26,61 +26,76 @@ def prompt(message)
   puts "\n=> #{message}"
 end
 
-# Begin program
-prompt(MESSAGES["welcome"])
+def exit_program?
+  prompt(MESSAGES["again"])
+  answer = gets.chomp.downcase
 
-loop do
-  loan_amount = nil
+  if answer.start_with?('y')
+    false
+  else
+    true
+  end
+end
+
+def get_loan
   loop do
     prompt(MESSAGES["get_loan"])
-    loan_amount = gets.chomp
+    answer = gets.chomp
 
-    if valid_number?(loan_amount)
-      loan_amount = loan_amount.to_f
-      break
+    if valid_number?(answer)
+      return answer.to_f
     else
       prompt(MESSAGES["invalid_loan"])
     end
   end
+end
 
-  apr = nil
-  monthly_interest = nil
+def get_interest
   loop do
     prompt(MESSAGES["get_apr"])
     apr = gets.chomp
 
     if valid_number?(apr) && apr.to_f.between?(0, 100)
-      monthly_interest = ((apr.to_f / 100) / 12)
-      break
+      return ((apr.to_f / 100) / 12)
     else
       prompt(MESSAGES["invalid_apr"])
     end
   end
+end
 
-  duration_in_years = nil
-  duration_in_months = nil
+def get_duration_years
   loop do
     prompt(MESSAGES["get_duration"])
     duration_in_years = gets.chomp
 
     if valid_number?(duration_in_years)
-      duration_in_months = years_to_months(duration_in_years)
-      break
+      return years_to_months(duration_in_years)
     else
       prompt(MESSAGES["invalid_duration"])
     end
   end
+end
 
-  display_monthly_payment = monthly_payment(loan_amount, monthly_interest, duration_in_months).round(2)
-  display_monthly_interest = (monthly_interest * 100).round(2)
+# Begin program
+prompt(MESSAGES["welcome"])
+
+loop do
+  loan_amount = get_loan
+  monthly_interest = get_interest
+  duration_in_months = get_duration_years
+
+  display_monthly_payment = format('%.2f', monthly_payment(loan_amount,
+                                                           monthly_interest,
+                                                           duration_in_months))
+  display_monthly_interest = format('%.2f', (monthly_interest * 100))
   display_months = duration_in_months.to_i
 
   prompt("\tYour monthly payment is $#{display_monthly_payment}")
   prompt("\tYour monthly interest rate is #{display_monthly_interest}%")
   prompt("\tThe duration of your loan is #{display_months} months.\n\n")
 
-  prompt(MESSAGES["again"])
-  again = gets.chomp.downcase
-
-  break prompt(MESSAGES["goodbye"]) if again != "y"
+  break if exit_program?
+  system("clear")
 end
+
+prompt(MESSAGES["goodbye"])
