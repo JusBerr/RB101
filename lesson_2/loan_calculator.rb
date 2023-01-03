@@ -30,11 +30,7 @@ def exit_program?
   prompt(MESSAGES["again"])
   answer = gets.chomp.downcase
 
-  if answer.start_with?('y')
-    false
-  else
-    true
-  end
+  true unless answer.start_with?('y')
 end
 
 def get_loan
