@@ -1,0 +1,32 @@
+welcome: |+
+          Hello and welcome to Rock-Paper-Scissors-Lizard-Spock
+             You will be doing battle with the infamous villain known as Computer
+                        Good luck...
+
+display_rules?: "Would you like to review the rules of the game? (Y/N)"
+
+rules: |+
+
+              Scissors cuts Paper
+              Paper covers Rock
+              Rock crushes Lizard
+              Lizard poisons Spock
+              Spock smashes Scissors
+              Scissors decapitates Lizard
+              Lizard eats Paper
+              Paper disproves Spock
+              Spock vaporizes Rock
+              (and as it always has) Rock crushes Scissors
+
+              You can type the full word or just the first letter for most moves
+              For Scissors and Spock you can type the full word or the first two letters ("sp" for Spock & "sc" for Scissors)
+
+get_name: "What is your name, soldier?"
+invalid_name: "Must be a valid name! No spaces or special characters allowed."
+tie: "It's a tie!"
+player_win: "You won this round!"
+computer_win: "Computer won this round!"
+play_again?: "Do you want to play another match? (Y/N)"
+player_move: "Choose your move:"
+invalid_move: "That is not a valid move."
+suspense: "And choose wisely..."
