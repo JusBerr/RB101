@@ -123,7 +123,7 @@ loop do
     loop do
       prompt(MESSAGES["player_move"])
 
-      add_suspense if computer_score == 2
+      add_suspense if computer_score == (WINNING_SCORE - 1)
 
       player_move = gets.chomp.downcase
       player_move = VALID_MOVES[player_move]
