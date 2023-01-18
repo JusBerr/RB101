@@ -66,7 +66,7 @@ end
 def display_round_result(player_move, computer_move)
   case round_winner(player_move, computer_move)
   when :tie
-    prompt(MESSAGES["tie"])
+    prompt(MESSAGES["draw"])
   when :player_win
     prompt(MESSAGES["player_win"])
   else
