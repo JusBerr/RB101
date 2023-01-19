@@ -21,6 +21,8 @@ rules: |+
               You can type the full word for your move or just the first letter for most moves
               For Scissors and Spock you can type the full word or the first two letters ("sp" for Spock & "sc" for Scissors)
 
+              PRESS 'ENTER' TO CONTINUE. You may taunt Computer first if you so wish.
+
 get_name: "What is your name, soldier?"
 invalid_name: "Must be a valid name! No spaces or special characters allowed."
 draw: "It's a draw!"
@@ -30,3 +32,8 @@ play_again?: "Do you want to play another match? (Y/N)"
 player_move: "Choose your move:"
 invalid_move: "That is not a valid move."
 suspense: "And choose wisely..."
+goodbye: |+
+          Computer: "As predicted. Return at your peril..."
+
+              Whew well that's ominous. Anyway, thanks for playing!
+
