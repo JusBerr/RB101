@@ -142,6 +142,10 @@ def update_computer_score(player_move, computer_move, computer_score)
   end
 end
 
+def winning_score_reached?(player_score, computer_score)
+  player_score == WINNING_SCORE || computer_score == WINNING_SCORE
+end
+
 # Begin program
 prompt(MESSAGES["welcome"])
 sleep(1)
@@ -160,7 +164,7 @@ loop do
   computer_score = 0
   display_current_score(player_score, computer_score)
 
-  until player_score == WINNING_SCORE || computer_score == WINNING_SCORE
+  until winning_score_reached?(player_score, computer_score)
 
     computer_move = random_move
 
