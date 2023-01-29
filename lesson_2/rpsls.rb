@@ -7,14 +7,12 @@ VALID_MOVES = { 'r' => :rock,      'rock' => :rock,
                 'sp' => :spock,    'spock' => :spock,
                 'l' => :lizard,    'lizard' => :lizard }
 
-COMPUTER_MOVES = %w(rock paper scissors spock lizard)
-
 WIN_CONDITIONS = {
-  rock: ['lizard', 'scissors'],
-  paper: ['rock', 'spock'],
-  scissors: ['paper', 'lizard'],
-  spock: ['rock', 'scissors'],
-  lizard: ['paper', 'spock']
+  rock: [:lizard, :scissors],
+  paper: [:rock, :spock],
+  scissors: [:paper, :lizard],
+  spock: [:rock, :scissors],
+  lizard: [:paper, :spock]
 }
 
 WINNING_SCORE = 3
@@ -56,7 +54,7 @@ end
 def round_winner(player_move, computer_move)
   if player_move == computer_move
     :tie
-  elsif WIN_CONDITIONS[player_move].include?(computer_move.to_s)
+  elsif WIN_CONDITIONS[player_move].include?(computer_move)
     :player_win
   else
     :computer_win
@@ -114,7 +112,7 @@ def get_player_move(computer_score)
 end
 
 def random_move
-  COMPUTER_MOVES.sample.to_sym
+  VALID_MOVES.values.uniq.sample
 end
 
 def display_selected_moves(player_move, computer_move)
